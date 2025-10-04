@@ -1,7 +1,7 @@
-from flask import Flask
+from fer import FER
+import cv2
+import movie
 
-app = Flask(__name__)
-
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+img = cv2.imread("tanay.jpg")
+detector = FER()
+detector.detect_emotions(img)
