@@ -1,5 +1,6 @@
-import emotions.emotionAnalyzer as analyzer
-import speech.speechRec as sr
+import emotions.emotionAnalyzer as eanalyzer
+import speech.speechRec as sanalyzer
+import tone.toneAnalyzer as tanalyzer
 import os
 
 VIDEO_PATH = "videos/"
@@ -7,10 +8,12 @@ filename = "random.mov"
 
 filepath = VIDEO_PATH + filename
 
-emotions = analyzer.getEmotions(filepath)
-speech = sr.getSpeechTranscript(filepath)
+emotions = eanalyzer.getEmotions(filepath)
+speech = sanalyzer.getSpeechTranscript(filepath)
+tone = tanalyzer.get_sentiment(speech)
 
 print(speech)
+print(tone)
 print(emotions)
 
 os.remove("data.csv")
