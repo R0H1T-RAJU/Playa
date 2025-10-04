@@ -3,7 +3,7 @@ import speech.speechRec as sr
 import os
 
 VIDEO_PATH = "videos/"
-filename = "video.mov"
+filename = "random.mov"
 
 filepath = VIDEO_PATH + filename
 
