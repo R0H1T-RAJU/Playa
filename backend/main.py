@@ -2,10 +2,13 @@ import emotions.emotionAnalyzer as analyzer
 import speech.speechRec as sr
 import os
 
-filename = "videos/video.mov"
+VIDEO_PATH = "videos/"
+filename = "video.mov"
 
-emotions = analyzer.getEmotions(filename)
-speech = sr.getSpeechTranscript(filename)
+filepath = VIDEO_PATH + filename
+
+emotions = analyzer.getEmotions(filepath)
+speech = sr.getSpeechTranscript(filepath)
 
 print(speech)
 print(emotions)
