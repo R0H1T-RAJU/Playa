@@ -42,7 +42,7 @@ print("prompt: ", prompt)
 
 response = client.models.generate_content(
     model="gemini-2.5-flash",
-    contents='''Use the song prompt that I am about to give you and generate song lyrics for a 30 second song about this prompt.
+    contents='''Use the song prompt that I am about to give you and generate song lyrics for a 60 second song about this prompt.
                 ''' + prompt
 )
 
