@@ -20,5 +20,14 @@ def get_song_mp3(song_id):
         return (data['conversion']['conversion_path_1'])
     else:
         print(f"Error {response.status_code}: {response.text}")
+        
 
-get_song_mp3("1094cdad-7c6b-4d75-b02d-efa3526adc26")
+song_id = "1094cdad-7c6b-4d75-b02d-efa3526adc26"
+download_url = None
+while not download_url:
+    download_url = get_song_mp3(song_id)
+    if not download_url:
+        print("Conversion not ready yet. Retrying in 15 seconds...")
+        time.sleep(15)
+
+print("Download link:", download_url)
