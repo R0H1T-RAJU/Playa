@@ -3,8 +3,11 @@ import requests
 import os
 import sys
 import time
+from dotenv import load_dotenv
 
-api_key = "9a037c143a194607a3661f16fcb19263" # Your API key goes here
+load_dotenv()
+
+api_key = os.getenv("API_KEY") # Your API key goes here
 upload_endpoint = 'https://api.assemblyai.com/v2/upload'
 
 def read_file(filename, chunk_size=5242880):

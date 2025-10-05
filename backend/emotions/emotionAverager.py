@@ -1,20 +1,16 @@
 import pandas as pd
 
-def average_emotions(df):
-
-    # Correct emotion column names from FER
+def average_emotions(df, min_percentage=5):
     emotions = ["angry","disgust","fear","happy","neutral","sad","surprise"]
 
     # Function to get dominant emotion for a row
     def get_dominant_emotion(row):
         emotion_probs = row[emotions]
-        max_idx = emotion_probs.idxmax()
-        return max_idx
+        return emotion_probs.idxmax()
 
-    # Add a dominant emotion column
+    # Add dominant emotion column
     df['dominant_emotion'] = df.apply(get_dominant_emotion, axis=1)
 
-    # Group by consecutive dominant emotions
     timeline = []
     if not df.empty:
         start_idx = 0
@@ -22,25 +18,40 @@ def average_emotions(df):
 
         for i in range(1, len(df)):
             if df.loc[i, 'dominant_emotion'] != current_emotion:
-                # Save current segment
-                timeline.append({
-                    'emotion': current_emotion,
-                    'start_frame': start_idx,
-                    'end_frame': i-1
-                })
-                # Update for new segment
+                end_idx = i - 1
+                seg_length = end_idx - start_idx + 1
+                pct = (seg_length / len(df)) * 100
+
+                if pct >= min_percentage:
+                    timeline.append({
+                        'emotion': current_emotion,
+                        'start_frame': start_idx,
+                        'end_frame': end_idx,
+                        'percentage': pct
+                    })
+
                 start_idx = i
                 current_emotion = df.loc[i, 'dominant_emotion']
 
-        # Add the last segment
-        timeline.append({
-            'emotion': current_emotion,
-            'start_frame': start_idx,
-            'end_frame': len(df)-1
-        })
+        # Handle last segment
+        end_idx = len(df) - 1
+        seg_length = end_idx - start_idx + 1
+        pct = (seg_length / len(df)) * 100
+
+        if pct >= min_percentage:
+            timeline.append({
+                'emotion': current_emotion,
+                'start_frame': start_idx,
+                'end_frame': end_idx,
+                'percentage': pct
+            })
 
     # Build timeline string
     x = ""
     for segment in timeline:
-        x += f"{segment['emotion']} from frame {segment['start_frame']} to {segment['end_frame']}\n"
+        x += (
+            f"{segment['emotion']} from frame {segment['start_frame']} "
+            f"to {segment['end_frame']} ({segment['percentage']:.1f}%)\n"
+        )
+
     return x
