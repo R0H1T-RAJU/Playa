@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-api_key = os.getenv("API_KEY") # Your API key goes here
+api_key = os.getenv("API_KEY")
 upload_endpoint = 'https://api.assemblyai.com/v2/upload'
 
 def read_file(filename, chunk_size=5242880):

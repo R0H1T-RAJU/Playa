@@ -1,43 +1,24 @@
 import requests
-import time
+from dotenv import load_dotenv
+import os
 
-API_KEY = "HTMP1ih07mZXw8foEXC8Py5z7gCi-N_UWiz8RzwVKavyUTJyAXxzGu-n1tr2-0-6lojpBZRUI1rOg59NFpYezQ"
-BASE_URL = "https://api.musicgpt.com/api/public/v1/MusicAI"
+load_dotenv()
 
-task_id = "1094cdad-7c6b-4d75-b02d-efa3526adc26"
+api_key = os.getenv("SONG_KEY")
 
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": f"Bearer {API_KEY}"
-}
+def get_song_mp3(song_id):
+    url = f"https://api.musicgpt.com/api/public/v1/byId?conversion_id={song_id}&conversionType=MUSIC_AI"
+    headers = {
+        "Authorization": api_key
+    }
 
-# Try different endpoint patterns
-endpoints_to_try = [
-    f"{BASE_URL}/status/{task_id}",
-    f"{BASE_URL}/task/{task_id}",
-    f"{BASE_URL}/job/{task_id}",
-    f"{BASE_URL}/{task_id}",
-    f"{BASE_URL}?task_id={task_id}",
-]
+    response = requests.get(url, headers=headers)
 
-print("Testing different endpoint patterns...\n")
-
-for endpoint in endpoints_to_try:
-    print(f"Trying: {endpoint}")
-    response = requests.get(endpoint, headers=headers)
-    print(f"Status code: {response.status_code}")
-    print(f"Response: {response.text[:200]}\n")
-    
+    # check status
     if response.status_code == 200:
-        print("✓ Found working endpoint!")
-        data = response.json()
-        print(f"Full response: {data}")
-        break
-else:
-    print("\n--- None of the standard patterns worked ---")
-    print("Please check the MusicGPT API documentation for the correct status endpoint")
-    print("\nAlternatively, try GET request to base URL:")
-    
-    response = requests.get(BASE_URL, headers=headers)
-    print(f"Status: {response.status_code}")
-    print(f"Response: {response.text}")
+        data = response.json()  # if it's JSON
+        return (data['conversion']['conversion_path_1'])
+    else:
+        print(f"Error {response.status_code}: {response.text}")
+
+get_song_mp3("1094cdad-7c6b-4d75-b02d-efa3526adc26")

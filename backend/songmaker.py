@@ -1,6 +1,10 @@
-API_KEY = "HTMP1ih07mZXw8foEXC8Py5z7gCi-N_UWiz8RzwVKavyUTJyAXxzGu-n1tr2-0-6lojpBZRUI1rOg59NFpYezQ"
-
+from dotenv import load_dotenv
 import requests
+import os
+
+load_dotenv()
+
+api_key = os.getenv("SONG_KEY")
 
 API_URL = "https://api.musicgpt.example.com/v1/generate"  # replace with real MusicGPT endpoint
 
@@ -19,7 +23,7 @@ payload = {
 
 headers = {
     "Content-Type": "application/json",
-    "Authorization": f"Bearer {API_KEY}"
+    "Authorization": f"Bearer {api_key}"
 }
 
 response = requests.post(API_URL, json=payload, headers=headers)
