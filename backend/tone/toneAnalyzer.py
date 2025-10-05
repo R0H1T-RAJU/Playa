@@ -28,7 +28,7 @@ def get_sentiment(text):
 
     scores = analyzer.polarity_scores(text)
 
-    return scores
+    return str(scores)
 
 def tone_analysis(text):
 
