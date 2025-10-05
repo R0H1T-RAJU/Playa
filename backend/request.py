@@ -1,5 +1,6 @@
 import requests
 from dotenv import load_dotenv
+import time
 import os
 
 load_dotenv()
@@ -22,12 +23,12 @@ def get_song_mp3(song_id):
         print(f"Error {response.status_code}: {response.text}")
         
 
-song_id = "1094cdad-7c6b-4d75-b02d-efa3526adc26"
+song_id = "ccbccb3e-e89b-45ed-bc8e-542640964492"
 download_url = None
 while not download_url:
     download_url = get_song_mp3(song_id)
     if not download_url:
-        print("Conversion not ready yet. Retrying in 15 seconds...")
-        time.sleep(15)
+        print("Conversion not ready yet. Retrying in 30 seconds...")
+        time.sleep(30)
 
 print("Download link:", download_url)
