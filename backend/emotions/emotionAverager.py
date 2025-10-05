@@ -1,6 +1,6 @@
 import pandas as pd
 
-def average_emotions(df, min_percentage=15):
+def average_emotions(df, min_percentage=10):
     emotions = ["angry","disgust","fear","happy","neutral","sad","surprise"]
 
     # Function to get dominant emotion for a row
