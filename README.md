@@ -1,4 +1,4 @@
-# AI Story-to-Song Generator
+# AI Story-to-Song Generator 🎶
 A web application that transforms a story into a custom song using AI emotion analysis and speech recognition.
 
 ## Overview
