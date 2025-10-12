@@ -1,4 +1,5 @@
 # AI Story-to-Song Generator 🎶
+Created By: Arav Lohe, Ian Roybal, Rohit Bhupathiraju, Tanay Sreedharan
 A web application that transforms a story into a custom song using AI emotion analysis and speech recognition.
 
 ## Overview
